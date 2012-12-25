@@ -4,7 +4,7 @@ MF=Math.round;
 function fixEvent(e) {
   e = e || window.event;
   if (!e.target) e.target = e.srcElement;
-  if (e.pageX == null && e.clientX != null ) { // если нет pageX..
+  if (e.pageX == null && e.clientX != null ) { // if pageX no exist..
     html = DC.DCElement;
     B = DC.body;
     e.pageX = e.clientX + (html.scrollLeft || B && B.scrollLeft || 0);
@@ -30,8 +30,6 @@ function nano_slider(id,minval,maxval,cb,counter)
 this.sliderElem = DC.getElementById(id);
 this.thumbElem=this.sliderElem.children[0];
 var self =this;
-//if(!minval)minval=-10;
-//if(!maxval)maxval=10;
 val=0;
 
 this.val =function (){return val};
@@ -49,10 +47,10 @@ this.thumbElem.onmousedown = function(e) {
   DC.onmousemove = function(e) {
     e = fixEvent(e);
 
-    //  вычесть координату родителя, т.к. position: relative
+    //substract position  //вычесть координату родителя, т.к. position: relative
       pos = e.pageX - shiftX - sliderCoords.left;
 
-    // курсор ушёл вне слайдера
+    // out of slider //курсор ушёл вне слайдера
     if (pos < 0)pos = 0;
    
       max_pos = self.sliderElem.offsetWidth - self.thumbElem.offsetWidth;
@@ -65,7 +63,7 @@ this.thumbElem.onmousedown = function(e) {
 	
 	DC.getElementById(counter).innerHTML= val;
   
-  pos=Math.floor(MF(pos*k)/k); //сгрубляем поведение
+  pos=Math.floor(MF(pos*k)/k); //round position to value //сгрубляем поведение
   self.thumbElem.style.left = pos + 'px';
   }
 
